@@ -4,9 +4,9 @@
 #include <iostream>
 #include <string>
 
-#define RST_PIN         22  // Configurável, veja o layout típico dos pinos acima
-#define SS_1_PIN        21  // Configurável, escolha um pino não utilizado, apenas HIGH/LOW é necessário, deve ser diferente de SS 2
-#define SS_2_PIN        4  // Configurável, escolha um pino não utilizado, apenas HIGH/LOW é necessário, deve ser diferente de SS 1
+#define RST_PIN         22  
+#define SS_1_PIN        21  
+#define SS_2_PIN        4  
 #define BOTAO           5
 #define NR_OF_READERS   2
 
@@ -57,20 +57,17 @@ char Dicionario(String tagID, String tagIDs[], int numTags) {
   return '0';
 }
 
-MFRC522 mfrc522[NR_OF_READERS]; // Criar instância MFRC522.
+MFRC522 mfrc522[NR_OF_READERS]; 
 
-/**
- * Inicializa.
- */
 void setup() {
-  Serial.begin(9600); // Inicializa a comunicação serial com o PC
-  while (!Serial);    // Não faz nada se nenhuma porta serial for aberta (adicionado para Arduinos baseados no ATMEGA32U4)
+  Serial.begin(9600); 
+  while (!Serial);    
 
-  SPI.begin(); // Inicia o barramento SPI
+  SPI.begin(); 
 
   for (uint8_t leitor = 0; leitor < NR_OF_READERS; leitor++) {
     
-    mfrc522[leitor].PCD_Init(ssPins[leitor], RST_PIN); // Inicializa cada cartão MFRC522
+    mfrc522[leitor].PCD_Init(ssPins[leitor], RST_PIN); 
     mfrc522[leitor].PCD_DumpVersionToSerial();
   }
 
@@ -91,18 +88,14 @@ void loop() {
     lastDebounceTime = currentTime;
   }
   for (uint8_t leitor = 0; leitor < NR_OF_READERS; leitor++) {
-    // Procura novos cartões
+
     if (mfrc522[leitor].PICC_IsNewCardPresent() && mfrc522[leitor].PICC_ReadCardSerial()) {
       String tag = dump_byte_array(mfrc522[leitor].uid.uidByte, mfrc522[leitor].uid.size);
-      //Serial.println(tag);
       char letra = Dicionario(tag, tagIDs, sizeof(tagIDs) / sizeof(tagIDs[0]));
       std::string numero_str = std::to_string(leitor);
       std::string resultado = numero_str + letra;
       std::cout << resultado << std::endl;
-      
-      // Para o PICC
       mfrc522[leitor].PICC_HaltA();
-      // Para a criptografia no PCD
       mfrc522[leitor].PCD_StopCrypto1();
     }
   }
