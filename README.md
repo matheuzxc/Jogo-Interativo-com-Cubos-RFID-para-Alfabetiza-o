@@ -46,6 +46,9 @@ O jogo desenvolvido é uma aplicação interativa que utiliza imagens e sons par
 
 Cada vez que uma letra é inserida, o sistema verifica a correção e fornece feedback. Se a sílaba estiver correta, um som de acerto é reproduzido e uma voz digital pronuncia a palavra completada. Se a sílaba estiver incorreta, um som de erro é tocado e a tentativa é marcada como falha. O jogo monitora o tempo e a pontuação, que é baseada na rapidez e precisão ao completar as palavras.
 
+![image](https://github.com/user-attachments/assets/e866b508-0d6f-45ba-b260-27445779a74d)
+
+
 ### 3.1. Modelagem do Sistema
 
 Para o desenvolvimento do projeto, foi utilizada a metodologia Arcadia (Architecting for Critical Systems) com a ferramenta Capella. A metodologia passa por camadas de especificação da arquitetura do sistema: **Operational Analysis**, **System Analysis**, **Logical Architecture** e **Physical Architecture**. As duas primeiras etapas abordam o entendimento da missão, enquanto as duas últimas tratam de como a missão será conduzida e quais recursos serão utilizados [Voirin 2017].
@@ -54,13 +57,19 @@ Para o desenvolvimento do projeto, foi utilizada a metodologia Arcadia (Architec
 
 A Figura 3 apresenta a análise operacional do sistema, onde são definidas as operações e funções que o jogo deve executar, identificando as necessidades operacionais e requisitos funcionais. Foram identificados os seguintes requisitos:
 
+![image](https://github.com/user-attachments/assets/668c90f4-6a38-4478-8acf-4554280384e2)
+
+
 1. **Identificar Letras**: O sistema deve identificar corretamente as palavras associadas aos cubos com tags RFID.
 2. **Identificação do Posicionamento**: O sistema deve reconhecer o posicionamento dos cubos nos slots e registrar as interações.
 3. **Visualizar Palavra**: A letra escolhida deve ser exibida na interface de forma clara.
 4. **Geração de Feedback**: O sistema deve fornecer feedback imediato sobre a correção da letra inserida.
 5. **Geração de Perfil das Jogadas**: O sistema deve registrar e gerar um perfil detalhado das jogadas, incluindo tempo de resposta, acertos e erros.
 
-Esses requisitos e as atividades entre as entidades do sistema estão representados no diagrama de atividades da Figura 3. A estrutura lógica do sistema, apresentada na Figura 4, descreve como os componentes interagem para atender aos requisitos estabelecidos.
+A estrutura lógica do sistema, apresentada na Figura 4, descreve como os componentes interagem para atender aos requisitos estabelecidos.
+
+![image](https://github.com/user-attachments/assets/555781c1-11e9-4de5-b704-af06c7ad7bec)
+
 
 ### 3.2. Dispositivo Físico
 
@@ -68,10 +77,15 @@ Para a comunicação e processamento do hardware, foram considerados três micro
 
 Os modelos **RC522** e **RDM6300** foram analisados para a implementação dos módulos RFID. O RC522 foi escolhido devido à sua frequência de operação de 13,56 MHz, que oferece uma leitura rápida e eficiente, além de ser econômico. O RC522 se comunica com o ESP32 via protocolo SPI. A configuração de múltiplos módulos foi planejada para garantir leituras simultâneas, utilizando pinos exclusivos para cada leitor, permitindo escalabilidade.
 
+![image](https://github.com/user-attachments/assets/006455ac-117b-4e24-8842-7501f5a849a1)
+
+
 A bancada do dispositivo foi projetada para acomodar todos os componentes e ser de fácil fabricação e escalabilidade. Optou-se por MDF e corte a laser, possibilitando uma estrutura encaixável, sem parafusos ou colas. Além disso, o jogo é executado em um computador, com a Figura 5 apresentando a implementação do sistema RFID com os módulos RC522 e ESP32.
 
 Na manufatura, foram desenvolvidos cubos com letras e uma mesa para leitura. Os cubos são feitos de MDF, material escolhido pela disponibilidade e facilidade de corte a laser. Cada face do cubo possui uma letra e uma tag RFID, permitindo a identificação precisa das letras pelo jogo. Os cubos são ocos, facilitando a inserção e proteção das tags RFID.
 
 A mesa, também feita de MDF, foi projetada para ser robusta e segura para uso infantil.
+
+![image](https://github.com/user-attachments/assets/8583f2ca-505c-4721-8b02-7f570a4be91b)
 
 
